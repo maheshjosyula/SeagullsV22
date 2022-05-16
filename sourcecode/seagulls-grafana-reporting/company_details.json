@@ -1,0 +1,447 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Dashboard which provides multiple diversity factors regarding an enterprise.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 13,
+  "iteration": 1652708378973,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "bolt",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Metrics",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://hack22.grafana.net/goto/HnEptNu7k?orgId=1"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "S_wG7iunk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 16,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/.*/",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "mssql",
+            "uid": "S_wG7iunk"
+          },
+          "format": "table",
+          "rawSql": "select\r\n      a.[BusinessName]\r\n      \r\n  from [dbo].[tblBusiness] a\r\n  \r\n  where [BusinessName] = '$Enterprise'\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Organization",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "S_wG7iunk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "No"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "Yes"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "-NA-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "firstNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showUnfilled": false
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "mssql",
+            "uid": "S_wG7iunk"
+          },
+          "format": "table",
+          "rawSql": "select\r\n  a.[BusinessName]\r\n      ,a.[OwnershipType]\r\n      ,a.[isWomenOwned] as 'Women Owned'\r\n      ,a.[MBE]\r\n      ,a.[WBE]\r\n      ,a.[MWBE]\r\n      ,a.[LGBTBE]\r\n      ,a.[VOSB]\r\n      ,a.[VeteranOwned]\r\n      \r\n  from [dbo].[tblBusiness] a\r\n  --inner join [dbo].[tblEmployees] b on a.[busID] = b.[busID]\r\n  where [BusinessName] = '$Enterprise'\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Ownership Details",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "S_wG7iunk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-orange",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [],
+          "noValue": "-NA-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "BusinessName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 182
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Address"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 179
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 16,
+        "x": 0,
+        "y": 2
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "mssql",
+            "uid": "S_wG7iunk"
+          },
+          "format": "table",
+          "rawSql": " select\r\n      --a.[BusinessName]\r\n      a.[Address]\r\n      ,a.[City]\r\n      ,a.[State]\r\n      ,a.[Zip]\r\n      ,a.[Country]\r\n      ,a.[PhoneNumber]\r\n      ,a.[BusType]\r\n  from [dbo].[tblBusiness] a\r\n  --inner join [dbo].[tblEmployees] b on a.[busID] = b.[busID]\r\n  where [BusinessName] = '$Enterprise'",
+          "refId": "A"
+        }
+      ],
+      "title": "Organization Details",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mssql",
+        "uid": "S_wG7iunk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "continuous-YlBl"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [
+            {
+              "options": {
+                "-NA-": {
+                  "color": "red",
+                  "index": 0
+                },
+                "Wiki": {
+                  "color": "green",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "-NA-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "BusinessName"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 314
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Designation"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 189
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Datasource"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "mssql",
+            "uid": "S_wG7iunk"
+          },
+          "format": "table",
+          "rawSql": "select\r\n  --a.BusinessName\r\n  b.Datasource\r\n  ,b.Name as Employee\r\n  ,b.Designation\r\n  ,b.gender\r\n  ,b.MaritalStatus\r\n  ,b.Race\r\n  ,b.Ethnicity\r\n  ,b.Education\r\n  ,b.Language\r\n  ,b.Nationality\r\n  ,b.Disability\r\n    from [dbo].[tblBusiness] a\r\n  inner join [dbo].[tblEmployees] b on a.[busID] = b.[busID]\r\n  where [BusinessName] = '$Enterprise'",
+          "refId": "A"
+        }
+      ],
+      "title": "Employee Details",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "Mvp Consulting Plus, Inc.",
+          "value": "Mvp Consulting Plus, Inc."
+        },
+        "datasource": {
+          "type": "mssql",
+          "uid": "S_wG7iunk"
+        },
+        "definition": "  select distinct [BusinessName] FROM [dbo].[tblBusiness]",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Enterprise",
+        "options": [],
+        "query": "  select distinct [BusinessName] FROM [dbo].[tblBusiness]",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-05-15T22:00:22.690Z",
+    "to": "2022-05-16T04:00:22.690Z"
+  },
+  "timepicker": {
+    "hidden": true
+  },
+  "timezone": "",
+  "title": "Diversity and Enterprise - Interactive Dashboard",
+  "uid": "xcWPKIXnz",
+  "version": 13,
+  "weekStart": ""
+}

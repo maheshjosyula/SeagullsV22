@@ -132,7 +132,7 @@ public class LinkedInController {
 
 	public void saveToBlobStorage(InputStream targetStream) throws IOException {
 		BlobContainerClient container = new BlobContainerClientBuilder().connectionString(
-				"DefaultEndpointsProtocol=https;AccountName=seagullsstorage;AccountKey=1W2VlvlzxmzzQcRUULCSjFuhhTpGluxPBymj2Et4SCfTOpwPLZqquLW3qKl46+sMohn+SdvQkKsI+AStmcLbHQ==;EndpointSuffix=core.windows.net")
+				"")
 				.containerName("linkedin").buildClient();
 		BlobClient blobClient = container.getBlobClient("content.json");
 		blobClient.uploadFromFile("C:\\Users\\dell\\Desktop\\content.json",true);
